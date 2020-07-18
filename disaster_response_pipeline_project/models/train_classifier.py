@@ -36,6 +36,7 @@ def load_data(database_filepath):
     #print(y)
     y=y.astype(int)
     category_names=y.columns
+    print category_names
     return X,y,category_names
 
 
@@ -94,6 +95,9 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''
+     export model as a pickle file
+    '''
      pickle.dump(model, open(model_filepath, 'wb'))
      
 

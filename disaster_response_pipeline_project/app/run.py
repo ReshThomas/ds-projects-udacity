@@ -26,11 +26,11 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+df = pd.read_sql_table('disasterresponse', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -42,6 +42,11 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+
+    # Getting category proportions 
+    category_pct = df[df.columns[5:]].sum()/len(df)              # % records in categories
+    category_pct = category_pct.sort_values(ascending = False) [1:10]      # top 10 sorting by largest to smallest
+    category_names = list(category_pct.index)                              # category names
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -63,7 +68,29 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_pct
+                )
+            ],
+
+            'layout': {
+                'title': 'Top 10 Categories',
+                'yaxis': {
+                    'title': "Proportion of Categories",
+                    'automargin':True
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': -45,
+                    'automargin':True
+                }
+            }
         }
+        
     ]
     
     # encode plotly graphs in JSON
@@ -82,7 +109,7 @@ def go():
 
     # use model to predict classification for query
     classification_labels = model.predict([query])[0]
-    classification_results = dict(zip(df.columns[4:], classification_labels))
+    classification_results = dict(zip(df.columns[5:], classification_labels))
 
     # This will render the go.html Please see that file. 
     return render_template(
