@@ -7,11 +7,11 @@ The code was run using Python3
 ## Project Motivation
 Using a combination of customer data , offer data and transaction data , the problem I chose to tackle is to predict if an offer is effective i.e. the customer is likely redeem a specific offer.
 This information can be used to send targeted offers to customers.
-*Data Sets
-*The following data sets have been provided as json files
--portfolio.json Offer metadata- detailed information of different offer types
--profile.json Customer medata- demographic information of customer
--transcript.js Customer Offer and transaction activity - transactions, offers received, offers viewed, and offers completed.
+*Data Sets*
+-The following data sets have been provided as json files
+ -portfolio.json Offer metadata- detailed information of different offer types
+ -profile.json Customer medata- demographic information of customer
+ -transcript.js Customer Offer and transaction activity - transactions, offers received, offers viewed, and offers completed.
 ## Requirements
 The Code was run using Python 3
 The following libraries have been used
